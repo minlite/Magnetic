@@ -22,6 +22,18 @@ import SpriteKit
         return label
     }()
     
+    public lazy var Alabel: SKMultilineLabelNode = { [unowned self] in
+        let Alabel = SKMultilineLabelNode()
+        Alabel.fontName = Defaults.fontName
+        Alabel.fontSize = CGFloat(10)
+        Alabel.fontColor = Defaults.fontColor
+        Alabel.position = CGPoint(x: 0, y: -20)
+        Alabel.width = self.frame.width
+        Alabel.separator = " "
+        addChild(Alabel)
+        return Alabel
+    }()
+    
     /**
      The text displayed by the node.
      */
@@ -29,6 +41,18 @@ import SpriteKit
         get { return label.text }
         set {
             label.text = newValue
+            resize()
+        }
+    }
+    
+    /**
+     The second  text displayed by the node.
+     */
+    
+    open var Atext: String? {
+        get { return Alabel.text }
+        set {
+            Alabel.text = newValue
             resize()
         }
     }
@@ -191,21 +215,26 @@ import SpriteKit
      
      - Returns: A new node.
      */
-    public init(text: String? = nil, image: UIImage? = nil, color: UIColor, path: CGPath, marginScale: CGFloat = 1.01) {
+    
+    
+    public init(text: String? = nil, Atext: String? = nil, image: UIImage? = nil, color: UIColor, path: CGPath, marginScale: CGFloat = 1.01) {
         super.init()
         self.path = path
         regeneratePhysicsBody(withPath: path)
         self.color = color
         self.strokeColor = .white
         _ = self.text
-        configure(text: text, image: image, color: color)
+        configure(text: text, Atext: text, image: image, color: color)
     }
+    
+    
     
     /**
      Creates a node with a circular path.
      
      - Parameters:
         - text: The text of the node.
+        - Atext: The second text of the node
         - image: The image of the node.
         - color: The color of the node.
         - radius: The radius of the node.
@@ -213,16 +242,18 @@ import SpriteKit
      
      - Returns: A new node.
      */
-    public convenience init(text: String? = nil, image: UIImage? = nil, color: UIColor, radius: CGFloat, marginScale: CGFloat = 1.01) {
-        let path = SKShapeNode(circleOfRadius: radius).path!
+    public convenience init(text: String? = nil, Atext: String? = nil, image: UIImage? = nil, color: UIColor, radius: CGFloat, marginScale: CGFloat = 1.01) {
+            let path = SKShapeNode(circleOfRadius: radius).path!
         self.init(text: text, image: image, color: color, path: path, marginScale: marginScale)
-    }
+        }
+
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(text: String?, image: UIImage?, color: UIColor) {
+    open func configure(text: String?, Atext: String?, image: UIImage?, color: UIColor) {
+        self.Atext = Atext
         self.text = text
         self.image = image
         self.color = color
