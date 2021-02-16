@@ -245,7 +245,8 @@ import SpriteKit
     public convenience init(text: String? = nil, Atext: String? = nil, image: UIImage? = nil, color: UIColor, radius: CGFloat, marginScale: CGFloat = 1.01) {
             let path = SKShapeNode(circleOfRadius: radius).path!
         self.init(text: text, image: image, color: color, path: path, marginScale: marginScale)
-        }
+        self.Atext = Atext    
+    }
 
     
     required public init?(coder aDecoder: NSCoder) {
